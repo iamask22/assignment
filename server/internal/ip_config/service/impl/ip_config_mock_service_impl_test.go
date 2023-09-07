@@ -4,6 +4,7 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/suite"
 	"mta-hosting-optimizer/server/internal/ip_config/service"
+	"mta-hosting-optimizer/server/internal/ip_config/service/data_generator"
 	"mta-hosting-optimizer/server/internal/ip_config/service/dtos"
 	"testing"
 )
@@ -31,14 +32,7 @@ func TestIPConfigMockServiceImplTestSuite(t *testing.T) {
 }
 
 func (suite *IPConfigMockServiceImplTestSuite) TestGetIPConfigData_success() {
-	ipConfigData := []dtos.IpConfig{
-		{IP: "127.0.0.1", HostName: "mta-prod-1", Active: true},
-		{IP: "127.0.0.2", HostName: "mta-prod-1", Active: false},
-		{IP: "127.0.0.3", HostName: "mta-prod-2", Active: true},
-		{IP: "127.0.0.4", HostName: "mta-prod-2", Active: true},
-		{IP: "127.0.0.5", HostName: "mta-prod-2", Active: false},
-		{IP: "127.0.0.6", HostName: "mta-prod-3", Active: false},
-	}
+	ipConfigData := data_generator.IPConfigMockData
 
 	actualIPConfigData := suite.ipConfigMockService.GetIPConfigData()
 	suite.Equal(ipConfigData, actualIPConfigData)
