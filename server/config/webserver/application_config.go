@@ -26,5 +26,7 @@ func InitializeApplicationConfig(apiMux *mux.Router) {
 	iPConfigMockService := ipConfigServiceImpl.NewIPConfigMockService()
 
 	hostingServImpl := hostingServiceImpl.NewHostingService(threshold, iPConfigMockService)
+	// Abstract the hosting service behind an interface, so that it can be easily mocked in unit tests.
+	// Abstract factory pattern is used to create the hosting controller.
 	hostingAPI.NewHostingController(apiMux, hostingServImpl)
 }
