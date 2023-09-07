@@ -3,6 +3,7 @@ package impl
 import (
 	hostingService "mta-hosting-optimizer/server/internal/hosting/service"
 	ipConfigService "mta-hosting-optimizer/server/internal/ip_config/service"
+	"sort"
 	"sync"
 )
 
@@ -36,12 +37,14 @@ func (svc *hostingServiceImpl) GetHostNames() []string {
 		}
 	}
 
-	var result []string
+	var requiredHostNames []string
 	for hostname, count := range hostnames {
 		if count <= svc.threshold {
-			result = append(result, hostname)
+			requiredHostNames = append(requiredHostNames, hostname)
 		}
 	}
 
-	return result
+	sort.Strings(requiredHostNames)
+
+	return requiredHostNames
 }

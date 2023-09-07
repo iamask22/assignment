@@ -6,7 +6,6 @@ import (
 	hostingService "mta-hosting-optimizer/server/internal/hosting/service"
 	"mta-hosting-optimizer/server/internal/ip_config/service/dtos"
 	"mta-hosting-optimizer/server/internal/ip_config/service/mocks"
-	"sort"
 	"testing"
 )
 
@@ -38,6 +37,7 @@ func (suite *HostingServiceImplTestSuite) TestGetHostNames_success() {
 
 	ipConfigData := []dtos.IpConfig{
 		{IP: "192.168.1.1", HostName: "server1", Active: true},
+		{IP: "192.168.1.2", HostName: "server1", Active: true},
 		{IP: "192.168.1.2", HostName: "server2", Active: true},
 		{IP: "192.168.1.3", HostName: "server3", Active: false},
 	}
@@ -55,7 +55,7 @@ func (suite *HostingServiceImplTestSuite) TestGetHostNames_success() {
 		{
 			name:          "X=1 (default)",
 			x:             1,
-			expectedHosts: []string{"server1", "server2", "server3"},
+			expectedHosts: []string{"server2", "server3"},
 		},
 		{
 			name:          "X=0",
@@ -69,8 +69,6 @@ func (suite *HostingServiceImplTestSuite) TestGetHostNames_success() {
 			suite.hostingService = NewHostingService(tc.x, suite.ipConfigMockService)
 			suite.ipConfigMockService.EXPECT().GetIPConfigData().Return(ipConfigData)
 			actualResponse := suite.hostingService.GetHostNames()
-			sort.Strings(actualResponse)
-			sort.Strings(tc.expectedHosts)
 			suite.Equal(tc.expectedHosts, actualResponse)
 		})
 	}
@@ -105,8 +103,6 @@ func (suite *HostingServiceImplTestSuite) TestGetHostNames_nil() {
 			suite.hostingService = NewHostingService(tc.x, suite.ipConfigMockService)
 			suite.ipConfigMockService.EXPECT().GetIPConfigData().Return(nil)
 			actualResponse := suite.hostingService.GetHostNames()
-			sort.Strings(actualResponse)
-			sort.Strings(tc.expectedHosts)
 			suite.Equal(tc.expectedHosts, actualResponse)
 		})
 	}
