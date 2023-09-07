@@ -27,11 +27,11 @@ func (svc *hostingServiceImpl) GetHostNames() []string {
 	hostnames := make(map[string]int)
 	for _, ipConfig := range ipConfigData {
 		if ipConfig.Active {
-			hostnames[ipConfig.Hostname]++
+			hostnames[ipConfig.HostName]++
 		} else {
-			if hostnames[ipConfig.Hostname] == 0 {
+			if hostnames[ipConfig.HostName] == 0 {
 				// If the hostname is not in the map, add it with a value of 0.
-				hostnames[ipConfig.Hostname] = 0
+				hostnames[ipConfig.HostName] = 0
 			}
 		}
 	}
