@@ -11,10 +11,12 @@ https://drive.google.com/file/d/1E4OYMLtOvEgi-LjhFu3nGIJhPLIQkjQF/view?usp=drive
   
 - About
   - Hardcoded ip config mock service with the given data.
+  - For better redability *X is named as THRESHOLD*.
   - Basic structure involves controller layer communicating with service layer, I did not include repo layer for sake of simplicity.
     - Ideally in real world scenerio, contoller layer calls service layer and service layer calls repo layer to get the data.
   - Test coverage is 100% for the unit test of hosting and ip config mock service.
   - Contains integration tests as well, under folder named integration.
+  - Test case runs on *push to main* and on *new pull request* via github actions.
 
 - Attached Screenshots
   - Code Ran with output
