@@ -26,3 +26,9 @@ https://drive.google.com/file/d/1E4OYMLtOvEgi-LjhFu3nGIJhPLIQkjQF/view?usp=drive
     
     <img width="953" alt="Screenshot 2023-09-08 at 3 08 25 AM" src="https://github.com/iamask22/mta-hosting-optimizer/assets/144318958/847d7b11-7296-407f-89b7-fa4ff25c2870">
 
+- Curl for the request
+  
+  `curl --location --request GET 'http://localhost:8080/api/v1/hosting/hostnames' \
+--header 'Content-Type: application/json' \
+--data '{}'`
+
