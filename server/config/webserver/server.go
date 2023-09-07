@@ -3,8 +3,8 @@ package webserver
 import (
 	"context"
 	"errors"
-	"fmt"
 	"github.com/gorilla/mux"
+	"log"
 	"net/http"
 	"time"
 )
@@ -38,22 +38,22 @@ func (s *Server) ServeHTTP() {
 		ReadTimeout:  time.Minute,
 	}
 
-	fmt.Println("Server starting at addr:", s.Address)
+	log.Println("Server starting at addr:", s.Address)
 	err := s.srv.ListenAndServe()
 	if errors.Is(err, http.ErrServerClosed) {
-		fmt.Println("Server Shutdown")
+		log.Println("Server Shutdown")
 	} else if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 }
 
 func (s *Server) Shutdown(goCtx context.Context) {
 	if s.srv == nil {
-		fmt.Println("Server not yet started.")
+		log.Println("Server not yet started.")
 		return
 	}
 
 	if err := s.srv.Shutdown(goCtx); err != nil {
-		fmt.Printf("Server failed to shutdown: %v", err.Error())
+		log.Printf("Server failed to shutdown: %v", err.Error())
 	}
 }

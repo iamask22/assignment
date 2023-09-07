@@ -1,18 +1,20 @@
 package impl
 
 import (
-	"mta-hosting-optimizer/server/internal/hosting/service"
-	service2 "mta-hosting-optimizer/server/internal/ip_config/service"
+	hostingService "mta-hosting-optimizer/server/internal/hosting/service"
+	ipConfigService "mta-hosting-optimizer/server/internal/ip_config/service"
 	"sync"
 )
 
 type hostingServiceImpl struct {
-	threshold int
 	sync.RWMutex
-	iPConfigMockService service2.IPConfigMockService
+	threshold           int
+	iPConfigMockService ipConfigService.IPConfigMockService
 }
 
-func NewHostingService(threshold int, iPConfigMockService service2.IPConfigMockService) service.HostingService {
+func NewHostingService(threshold int,
+	iPConfigMockService ipConfigService.IPConfigMockService) hostingService.HostingService {
+
 	return &hostingServiceImpl{
 		threshold:           threshold,
 		iPConfigMockService: iPConfigMockService,

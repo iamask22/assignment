@@ -3,6 +3,7 @@ package api
 import (
 	"encoding/json"
 	"github.com/gorilla/mux"
+	"log"
 	"mta-hosting-optimizer/server/internal/hosting/service"
 	"net/http"
 )
@@ -23,14 +24,15 @@ func NewHostingController(apiMux *mux.Router, hostingService service.HostingServ
 	return controller
 }
 
-func (hc *HostingController) getHostNames(w http.ResponseWriter, r *http.Request) {
-	resp := hc.hostingService.GetHostNames()
-	outputResp := make(map[string]interface{})
-	outputResp["output"] = resp
+func (hc *HostingController) getHostNames(w http.ResponseWriter, _ *http.Request) {
+	hostNames := hc.hostingService.GetHostNames()
+	outputJsonResp := make(map[string]interface{})
+	outputJsonResp["output"] = hostNames
 
 	w.Header().Set("Content-Type", "application/json")
-	err := json.NewEncoder(w).Encode(outputResp)
+	err := json.NewEncoder(w).Encode(outputJsonResp)
 	if err != nil {
+		log.Printf("Error while encoding response: %v", err)
 		return
 	}
 }

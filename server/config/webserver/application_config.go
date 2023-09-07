@@ -3,9 +3,9 @@ package webserver
 import (
 	"github.com/gorilla/mux"
 	"log"
-	"mta-hosting-optimizer/server/internal/hosting/api"
-	"mta-hosting-optimizer/server/internal/hosting/service/impl"
-	impl2 "mta-hosting-optimizer/server/internal/ip_config/service/impl"
+	hostingAPI "mta-hosting-optimizer/server/internal/hosting/api"
+	hostingServiceImpl "mta-hosting-optimizer/server/internal/hosting/service/impl"
+	ipConfigServiceImpl "mta-hosting-optimizer/server/internal/ip_config/service/impl"
 	"os"
 	"strconv"
 )
@@ -23,8 +23,8 @@ func InitializeApplicationConfig(apiMux *mux.Router) {
 		log.Fatalf("Invalid threshold value: %v", err)
 	}
 
-	iPConfigMockService := impl2.NewIPConfigMockService()
+	iPConfigMockService := ipConfigServiceImpl.NewIPConfigMockService()
 
-	hostingServiceImpl := impl.NewHostingService(threshold, iPConfigMockService)
-	api.NewHostingController(apiMux, hostingServiceImpl)
+	hostingServiceImpl := hostingServiceImpl.NewHostingService(threshold, iPConfigMockService)
+	hostingAPI.NewHostingController(apiMux, hostingServiceImpl)
 }

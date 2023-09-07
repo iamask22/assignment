@@ -15,8 +15,9 @@ func NewIPConfigMockService() service.IPConfigMockService {
 }
 
 func (svc *ipConfigMockServiceImpl) GetIPConfigData() []dtos.IpConfig {
-	svc.RLock()
-	defer svc.RUnlock()
+	// acquiring a write lock here, to guarantee data consistency in the presence of concurrent reads and writes.
+	svc.Lock()
+	defer svc.Unlock()
 
 	ipConfigData := []dtos.IpConfig{
 		{IP: "127.0.0.1", Hostname: "mta-prod-1", Active: true},
