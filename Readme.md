@@ -3,13 +3,18 @@
 https://drive.google.com/file/d/1E4OYMLtOvEgi-LjhFu3nGIJhPLIQkjQF/view?usp=drive_link
 
 - Installation
-  - Clone the Repo
-  - Run `go mod tidy` to install dependencies
-  - Run `go run main.go` to start the server with desired threshold, default is 1
-  - Run `go test -cover ./...` to run the tests (unit + integration)
+  - Clone the Repo.
+  - Run `go mod tidy` to install dependencies.
+  - Run `go run main.go` to start the server with desired threshold, default is 1.
+    - Set the threshold env variable named as `THRESHOLD`.
+  - Run `go test -cover ./...` to run the tests (unit + integration).
   
 - About
-  - Test coverage is 100%
+  - Hardcoded ip config mock service with the given data.
+  - Basic structure involves controller layer communicating with service layer, I did not include repo layer for sake of simplicity.
+    - Ideally in real world scenerio, contoller layer calls service layer and service layer calls repo layer to get the data.
+  - Test coverage is 100% for the unit test of hosting and ip config mock service.
+  - Contains integration tests as well, under folder named integration.
 
 - Attached Screenshots
   - Code Ran with output
